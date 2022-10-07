@@ -1,12 +1,17 @@
-import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 interface Props {
-  user: string;
+  user?: string;
 }
 
 // Note: `user` comes from the URL, courtesy of our router
-const Profile = ({ user }: Props) => {
+const Profile = ({ user: userParam }: Props) => {
+  let { user } = useParams();
+
+  if (userParam)
+    user = userParam;
+
   const [time, setTime] = useState<number>(Date.now());
   const [count, setCount] = useState<number>(0);
 

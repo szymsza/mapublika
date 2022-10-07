@@ -1,5 +1,5 @@
-import { h } from 'preact';
-import { Link } from 'preact-router/match';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { textState } from '../../store/atoms';
 import { textLengthState } from '../../store/selectors';
@@ -12,9 +12,9 @@ const Header = () => {
     <header className="header">
       <h1 onClick={() => setText('test69 420')}>Preact App {text}, délka: {textLength} </h1>
       <nav>
-        <Link activeClassName="active" href="/">Home</Link>
-        <Link activeClassName="active" href="/profile">Me</Link>
-        <Link activeClassName="active" href="/profile/john">John</Link>
+        <NavLink end={true} className={({ isActive }) => isActive ? "active" : ""} to="/">Home</NavLink>
+        <NavLink end={true} className={({ isActive }) => isActive ? "active" : ""} to="/profile">Me</NavLink>
+        <NavLink end={true} className={({ isActive }) => isActive ? "active" : ""} to="/profile/john">John</NavLink>
       </nav>
     </header>
   );

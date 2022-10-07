@@ -1,5 +1,9 @@
-import { h } from 'preact';
-import { Route, Router } from 'preact-router';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
 
 import Header from './header';
 
@@ -11,11 +15,13 @@ import { RecoilRoot } from 'recoil';
 const App = () => (
   <div id="app">
     <RecoilRoot>
-      <Header />
       <Router>
-        <Route path="/" component={Home} />
-        <Route path="/profile/" component={Profile} user="me" />
-        <Route path="/profile/:user" component={Profile} />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile/" element={<Profile user="me" />} />
+          <Route path="/profile/:user" element={<Profile />} />
+        </Routes>
       </Router>
     </RecoilRoot>
   </div>

@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import React from 'react';
 
 import Regions from '../../assets/maps/regions';
 import Counties from '../../assets/maps/counties';
