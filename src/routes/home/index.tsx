@@ -6,7 +6,7 @@ import Towns from '../../assets/maps/towns';
 
 const Home = () => (
   <div className="home">
-    <h1>Home</h1>
+    <h1 className="text-3xl font-bold underline">Home</h1>
     <Regions />
     <Counties />
     <Towns />
