@@ -1,6 +1,6 @@
 {
-  "name": "mapublika",
-  "short_name": "mapublika",
+  "name": "Mapublika",
+  "short_name": "Mapublika",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -11,6 +11,6 @@
       "src": "/assets/icons/mapublika_fav_192x192.jpg",
       "type": "image/jpg",
       "sizes": "192x192"
-    },
+    }
   ]
 }
