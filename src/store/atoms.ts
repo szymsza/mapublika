@@ -42,3 +42,8 @@ export const datasetsDataState = atom<DatasetsData>({
   key: 'datasetsData',
   default: {},
 });
+
+export const zipCodeState = atom<string>({
+  key: 'zipCode',
+  default: '',
+});

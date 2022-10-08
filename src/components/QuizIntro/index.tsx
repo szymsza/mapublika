@@ -2,7 +2,7 @@ import { Button } from '@vechaiui/button';
 import { Input } from '@vechaiui/forms';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { mojeIDDataState, mojeIDInitializedState } from '../../store/atoms';
+import { mojeIDDataState, mojeIDInitializedState, zipCodeState } from '../../store/atoms';
 import { MojeIDData } from '../../store/types';
 import loginButton from '../../assets/icons/login_button.svg';
 import Login from '../Login';
@@ -13,6 +13,7 @@ const QuizIntro = ({
 }) => {
     const [mojeIDData, setMojeIDData] = useRecoilState(mojeIDDataState);
     const [mojeIDInitialized, setMojeIDInitialized] = useRecoilState(mojeIDInitializedState);
+    const [zip, setZip] = useRecoilState(zipCodeState);
 
     window.setMojeIDLoginData = (data: MojeIDData | null) => {
         setMojeIDData(data);
@@ -41,13 +42,13 @@ const QuizIntro = ({
               }
 
               <p className="mb-2">{ mojeIDData ? "Nechceš použít mojeID?" : (mojeIDInitialized ? "Nemáš mojeID?" : "") } Můžeš zadat PSČ:</p>
-              <Input className="w-48" placeholder="např. 79601" />
+              <Input className="w-48" placeholder="např. 79601" value={zip} onChange={(e) => setZip(e.target.value)} />
             </div>
 
             <br /> 
 
             <div className="bg-white p-8 rounded-lg shadow-lg border inline-block my-8">
-                <Button size="xl" variant="solid" color='primary' className="mx-4 px-20 py-10 text-3xl" onClick={() => setStep(1)}>
+                <Button size="xl" variant="solid" color='primary' className="mx-4 px-20 py-10 text-3xl" onClick={() => zip.length >= 5 || mojeIDData ? setStep(1) : null}>
                     Chci začít
                 </Button>
             </div>
