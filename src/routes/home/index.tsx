@@ -1,10 +1,8 @@
 import React from 'react';
 import Regions from '../../assets/maps/regions';
 import Counties from '../../assets/maps/counties';
-import Towns from '../../assets/maps/towns';
-import { Checkbox, Radio, IconButton, Icon, ExclamationIcon } from "@vechaiui/react";
+import { Checkbox, Radio, IconButton } from "@vechaiui/react";
 import UploadIcon from '../../assets/icons/upload.svg';
-import Login from '../../components/login';
 
 const Home = () => (
   <div className="home">
@@ -20,7 +18,7 @@ const Home = () => (
     <div className="border m-4 inline-block p-2">
       <label htmlFor="uploadFile">Nahrát vlastní datový soubor</label> 
       <IconButton variant="solid" color="blue" id="uploadFile">
-        <img src={UploadIcon} className="w-6 h-6" />
+        <img src={UploadIcon} className="w-6 h-6"  alt="Nahrajte vlastní datový soubor" />
       </IconButton>
       <Checkbox.Group
         className="space-x-4"
@@ -32,10 +30,8 @@ const Home = () => (
         <Checkbox color="blue" value="3">data #3</Checkbox>
       </Checkbox.Group>
     </div>
-    <Login />
     <Regions />
     <Counties />
-    <Towns />
   </div>  
 );
 

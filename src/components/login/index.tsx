@@ -25,10 +25,7 @@ const Login = () => {
   if (mojeIDData)
     return (
       <div>
-        Logged in, cg!
-        {JSON.stringify(mojeIDData)}
-        <br />
-        <br />
+        {mojeIDData.given_name ?? mojeIDData.email ?? "Jste přihlášeni"}
         <button onClick={() => window.setMojeIDLoginData(null)}>
           Odhlásit se
         </button>

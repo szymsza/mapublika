@@ -6,6 +6,9 @@ export type MojeIDData = {
     postal_code: string;
     street_address: string;
   }
+  given_name?: string;
+  family_name?: string;
+  email?: string;
   aud: string[];
   exp: number;
   iat: number;
