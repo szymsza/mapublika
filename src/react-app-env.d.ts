@@ -9,7 +9,7 @@ declare global {
     mojeID: {
       requestAuthentication: () => void;
     },
-    setMojeIDLoginData: (data: MojeIDData) => void;
+    setMojeIDLoginData: (data: MojeIDData | null) => void;
     setMojeIDInitialized: (success: boolean) => void;
   }
 }
