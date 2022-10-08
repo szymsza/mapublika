@@ -23,8 +23,16 @@ const QuizQuestion = () => {
       // @ts-ignore
       api.get('/otazky/' + (zip.length >= 5 ? zip : mojeIDData.address.postal_code) + '/')
         .then(({ data }) => {
-          console.log(data);
-          setQuestions(data);
+          const arr = Object.entries(data);
+
+
+          // Shuffle array
+          const shuffled = arr.sort(() => 0.5 - Math.random());
+
+          let selected = shuffled.slice(0, 5);
+
+          // @ts-ignore
+          setQuestions(Object.fromEntries(selected));
         });
     }
   }, [questions]);
