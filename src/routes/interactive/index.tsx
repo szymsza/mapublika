@@ -5,6 +5,8 @@ import hackerGif from '../../assets/hund/hacker_compact.gif';
 import QuizIntro from '../../components/QuizIntro';
 import QuizQuestion from '../../components/QuizQuestion';
 import QuizResult from '../../components/QuizResult';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { questionsCorrect, questionsState, questionStepState } from '../../store/atoms';
 
 const Interactive = () => {
 
@@ -12,6 +14,9 @@ const Interactive = () => {
     const [hackerSrc, setHackerSrc] = useState('');
     const [isHackerAnimated, setHackerAnimated] = useState(false);
     const [step, setStep] = useState<number>(0);
+
+    const questions = useRecoilValue(questionsState);
+    const [questionStep] = useRecoilState(questionStepState);
 
     useEffect(() => {
         if (isHackerAnimated) {
@@ -32,12 +37,12 @@ const Interactive = () => {
         <div className="w-100">
             <img src={hackerSrc} className="inline-block" />
         </div>
-        {step === 0 ? <QuizIntro setStep={setStep} /> : null}
-        {step === 1 ? <QuizQuestion /> : null}
-        {step === 2 ? <QuizResult /> : null}
+        {step === 0 ? (<QuizIntro setStep={setStep} />) : null}
+        {step === 1 && (Object.keys(questions).length === 0 || Object.keys(questions).length > questionStep) ? <QuizQuestion /> : null}
+        {step === 1 && Object.keys(questions).length !== 0 && Object.keys(questions).length <= questionStep ? <QuizResult /> : null}
     </div>
     );
 };
-  
+
 // @ts-ignore
 export default Interactive;

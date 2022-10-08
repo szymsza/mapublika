@@ -4,7 +4,6 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { mojeIDDataState, mojeIDInitializedState, zipCodeState } from '../../store/atoms';
 import { MojeIDData } from '../../store/types';
-import loginButton from '../../assets/icons/login_button.svg';
 import Login from '../Login';
 
 const QuizIntro = ({
