@@ -5,7 +5,7 @@ import hacker from '../../assets/hund/hacker_compact.png';
 
 const Header = () => {
   return (
-    <header className="flex m-10" style={{justifyContent: "space-between"}}>
+    <header className="flex mx-8" style={{justifyContent: "space-between"}}>
       <NavLink end={true} to="/" className="inline-block">
         <img src={logo} alt="Mapublika" width="500px"/>
       </NavLink>
