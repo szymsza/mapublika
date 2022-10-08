@@ -7,7 +7,10 @@ import { MojeIDData } from '../../store/types';
 import loginButton from '../../assets/icons/login_button.svg';
 import Login from '../Login';
 
-const QuizIntro = () => {
+const QuizIntro = ({
+  // @ts-ignore
+  setStep,
+}) => {
     const [mojeIDData, setMojeIDData] = useRecoilState(mojeIDDataState);
     const [mojeIDInitialized, setMojeIDInitialized] = useRecoilState(mojeIDInitializedState);
 
@@ -44,7 +47,7 @@ const QuizIntro = () => {
             <br /> 
 
             <div className="bg-white p-8 rounded-lg shadow-lg border inline-block my-8">
-                <Button size="xl" variant="solid" color='primary' className="mx-4 px-20 py-10 text-3xl">
+                <Button size="xl" variant="solid" color='primary' className="mx-4 px-20 py-10 text-3xl" onClick={() => setStep(1)}>
                     Chci začít
                 </Button>
             </div>

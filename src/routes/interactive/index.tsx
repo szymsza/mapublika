@@ -11,13 +11,14 @@ const Interactive = () => {
     // animate hacker for 1s
     const [hackerSrc, setHackerSrc] = useState('');
     const [isHackerAnimated, setHackerAnimated] = useState(false);
+    const [step, setStep] = useState<number>(0);
 
     useEffect(() => {
         if (isHackerAnimated) {
             setHackerSrc(hackerGif);
             const timer = setTimeout(() => {
                 setHackerSrc(hackerStill);
-            }, 1000);
+            }, 3000);
             return () => clearTimeout(timer);
         }
     }, [isHackerAnimated]);
@@ -31,9 +32,9 @@ const Interactive = () => {
         <div className="w-100">
             <img src={hackerSrc} className="inline-block" />
         </div>
-        <QuizIntro />
-        <QuizQuestion />
-        <QuizResult />
+        {step === 0 ? <QuizIntro setStep={setStep} /> : null}
+        {step === 1 ? <QuizQuestion /> : null}
+        {step === 2 ? <QuizResult /> : null}
     </div>
     );
 };
