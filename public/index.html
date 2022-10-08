@@ -31,6 +31,7 @@
       document.addEventListener("DOMContentLoaded", function () {
 
         function parseClaims(clientClaims) {
+          console.log(clientClaims);
           var claims = {}
           for (var name in clientClaims) {
             claims[clientClaims[name][0]] = {'essential': clientClaims[name][1]}
@@ -39,6 +40,7 @@
         }
 
         function fillForm(uiDict) {
+          console.log(uiDict);
           for (var field_name in uiDict) {
             var nodes = document.querySelectorAll(
                 "input[name=" + field_name + "], " +
