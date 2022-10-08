@@ -26,19 +26,18 @@ const Login = () => {
     return (
       <div>
         {mojeIDData.given_name ?? mojeIDData.email ?? "Jste přihlášeni"}
-        <button onClick={() => window.setMojeIDLoginData(null)}>
+        <button onClick={() => window.setMojeIDLoginData(null)} className="bg-black text-white py-3 px-5 hover:opacity-80 rounded-lg ml-4">
           Odhlásit se
         </button>
       </div>
-    )
-      ;
+    );
 
   if (!mojeIDInitialized)
     return null;
 
   return (
     <button onClick={() => window.mojeID.requestAuthentication.bind(window.mojeID)()}>
-      <img src={loginButton} alt="Moje ID Login" className="w-52" />
+      <img src={loginButton} alt="Moje ID Login" className="w-60 hover:opacity-80" />
     </button>
   );
 }
