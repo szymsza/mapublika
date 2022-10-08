@@ -1,3 +1,6 @@
+// czechBlue: '#11457E',
+// czechRed: '#D7141A',
+
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
   
@@ -26,7 +29,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@vechaiui/core")({
       colors: ["red"],
-      colors: ["blue"],
+      colors: ["blue"]
     }),
   ],
 };
