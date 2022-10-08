@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Header from './header';
+import Header from './Header';
 
 // Code-splitting is automated for `routes` directory
 import Home from '../routes/home';

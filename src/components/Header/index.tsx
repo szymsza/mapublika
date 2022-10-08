@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logos/mapublika_logo.png';
 import hacker from '../../assets/hund/hacker_compact.png';
-import Login from '../login';
+import Login from '../Login';
 
 const Header = () => {
   return (

@@ -16,3 +16,5 @@ export type MojeIDData = {
   nonce: string;
   sub: string;
 };
+
+export type MapResolution = "regions" | "counties";

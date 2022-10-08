@@ -1,19 +1,12 @@
 import React from 'react';
-import Regions from '../../assets/maps/regions';
-import Counties from '../../assets/maps/counties';
-import { Checkbox, Radio, IconButton } from "@vechaiui/react";
+import { Checkbox, IconButton } from "@vechaiui/react";
 import UploadIcon from '../../assets/icons/upload.svg';
+import MapResolution from '../../components/MapResolution';
+import Maps from '../../components/Maps';
 
 const Home = () => (
-  <div className="home">
-    <div className="border m-4 inline-block p-2">
-      <label>Úroveň rozlišení</label>
-        <Radio.Group defaultValue="1" className="space-x-4" inline>
-          <Radio color="blue" value="1">Kraje</Radio>
-          <Radio color="blue" value="2">Okresy</Radio>
-          <Radio color="blue" value="3">Obce</Radio>
-        </Radio.Group>
-    </div>
+  <div className="home px-8">
+    <MapResolution />
 
     <div className="border m-4 inline-block p-2">
       <label htmlFor="uploadFile">Nahrát vlastní datový soubor</label> 
@@ -30,8 +23,7 @@ const Home = () => (
         <Checkbox color="blue" value="3">data #3</Checkbox>
       </Checkbox.Group>
     </div>
-    <Regions />
-    <Counties />
+    <Maps />
   </div>  
 );
 
