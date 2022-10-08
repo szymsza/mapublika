@@ -58,13 +58,18 @@ const Info = () => {
             <div className="flex-1 px-6 py-2">
               <p className="text-base font-normal text-neutral-500">
                 Mapublika vznikla v rámci hackathonu NKÚ <a href="https://www.hackujstat.cz/">hackujstat.cz</a>.
-                Cílem bylo dostat data (primárně jaká publikuje ČSÚ, ale nejen ta) do vizuálních map České republiky, 
+                Cílem bylo dostat data (primárně od ČSÚ, ale nejen ta) do vizuálních map České republiky, 
                 které lze snadno porovnávat a hledat korelace. Předpřipravili jsme některé datové sady, ale hlavní síla 
                 spočívá v možnosti nahrávat vlastní data.
               </p>
               <br />
               <p className="text-base font-normal text-neutral-500">
-                Z dat se také automaticky tvoří interaktivní kvíz, který hledá zajímavá čísla a testuje Vaše odhady.
+                Z dat se také automaticky tvoří interaktivní zábavný kvíz, který hledá zajímavá čísla a testuje Vaše odhady.
+              </p>
+              <br />
+              <p className="text-base font-normal text-neutral-500">
+                Projekt také využívá službu MojeID pro personalizaci pozdravu a kvízu (lokalizace; jinak je třeba zadat PSČ) 
+                a hlavně pro ukládání datasetů. K dříve nahraným datasetům se lze díky identifikaci účtu vždy vrátit.
               </p>
             </div>
             <footer className="px-6 py-4">
