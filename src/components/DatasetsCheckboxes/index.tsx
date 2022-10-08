@@ -1,29 +1,61 @@
 import React, { useEffect } from 'react';
 import { Checkbox } from '@vechaiui/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { datasetsState } from '../../store/atoms';
+import { datasetsLoadedState, datasetsState } from '../../store/atoms';
 import { Dataset } from '../../store/types';
 import { checkedDatasetsIds } from '../../store/selectors';
 
 import UploadDataset from '../UploadDataset';
-import { getPublicDatasets } from '../../api';
+import { getPublicDatasets, getUserDatasets } from '../../api';
 import { publicDatasets } from '../../config';
 
 const DatasetsCheckboxes = () => {
   const [datasets, setDatasets] = useRecoilState(datasetsState);
   const checkedIds = useRecoilValue(checkedDatasetsIds);
+  const [datasetsLoaded, setDatasetsLoaded] = useRecoilState(datasetsLoadedState);
 
   useEffect(() => {
 
-    if (!datasets.length) {
+    if (datasetsLoaded.public === 'none') {
+      setDatasetsLoaded({
+        ...datasetsLoaded,
+        public: 'loading',
+      });
       getPublicDatasets()
         .then((data) => {
           // @ts-ignore
           setDatasets(data.map(item => publicDatasets[item]));
+          setDatasetsLoaded({
+            ...datasetsLoaded,
+            public: 'loaded',
+          });
         });
     }
 
-  }, [datasets]);
+  }, [datasets, datasetsLoaded]);
+
+  useEffect(() => {
+
+    if (datasetsLoaded.user === 'none') {
+      setDatasetsLoaded({
+        ...datasetsLoaded,
+        user: 'loading',
+      });
+      getUserDatasets()
+        .then((data) => {
+          /*
+          // @ts-ignore
+          setDatasets(data.map(item => publicDatasets[item]));
+           */
+          setDatasetsLoaded({
+            ...datasetsLoaded,
+            user: 'loaded',
+          });
+
+        });
+    }
+
+  }, [datasets, datasetsLoaded]);
 
   return (
     <div className="inline-block mb-4 mr-4 rounded-lg shadow-lg border">

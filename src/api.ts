@@ -43,6 +43,8 @@ type DatasetValue = Record<string, Record<string, number>>;
 type DatasetResponse = {
   kraje: DatasetValue;
   okresy: DatasetValue;
+  kraj: DatasetValue;
+  okres: DatasetValue;
   obce: {};
 };
 
@@ -113,8 +115,8 @@ export const loadDataset = async (id: string): Promise<DatasetData> => {
   }
 
   return {
-    regions: getColours(response.kraje),
-    counties: getColours(response.okresy),
+    regions: getColours(response.kraje ? response.kraje : response.kraj),
+    counties: getColours(response.okresy ? response.okresy : response.okres),
   }
 }
 
@@ -161,6 +163,25 @@ export const getPublicDatasets = async (): Promise<string[]> => {
 
   await api.get('/dataset/public/').then(({ data }: AxiosResponse<string[]>) => {
     response = data;
+  });
+
+  if (!response) {
+    return [];
+  }
+
+  return response;
+};
+
+export const getUserDatasets = async (): Promise<string[]> => {
+  let response = null;
+
+  await api.get('/user-datasets/', {
+    headers: {
+      'Authorization': 'Bearer ' + getUserToken(),
+    },
+  }).then(({ data }: AxiosResponse<string[]>) => {
+    response = data;
+    console.log(data);
   });
 
   if (!response) {

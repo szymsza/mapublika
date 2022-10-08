@@ -12,6 +12,17 @@ export const mojeIDInitializedState = atom<boolean>({
   default: false,
 });
 
+export const datasetsLoadedState = atom<{
+  public: 'none' | 'loading' | 'loaded';
+  user: 'none' | 'loading' | 'loaded';
+}>({
+  key: 'datasetsLoaded',
+  default: {
+    public: 'none',
+    user: 'none',
+  },
+});
+
 export const mapResolutionState = atom<MapResolution>({
   key: 'mapResolution',
   default: 'regions',

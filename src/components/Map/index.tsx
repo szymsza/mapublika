@@ -55,7 +55,7 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
       }
 
       const percentage = areaData.percentage[renderedColumn];
-      const tooltipValue = areaElement.getAttribute("data-label") + ": " + Math.round(areaData.value[renderedColumn]);
+      const tooltipValue = areaElement.getAttribute("data-label") + ": " + Math.round(areaData.value[renderedColumn] * 100) / 100;
 
       areaElement.setAttribute('fill', mapColours[dataset.index % mapColours.length]);
       areaElement.setAttribute('opacity', (0.5 + (parseFloat(percentage) / 2)).toString());

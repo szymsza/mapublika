@@ -19,6 +19,13 @@ export const publicDatasets = {
     selected: false,
   },
 
+  'vira': {
+    id: 'vira',
+    label: 'Víra',
+    description: 'Víra',
+    selected: false,
+  },
+
   'sldb2021_vira': {
     id: 'sldb2021_vira',
     label: 'Víra',
@@ -30,6 +37,13 @@ export const publicDatasets = {
     id: 'pocetDeti',
     label: 'Porodnost',
     description: 'Počet žen na tisíc obyvatel s počtem dětí',
+    selected: false,
+  },
+
+  'pocetDetiAverage': {
+    id: 'pocetDetiAverage',
+    label: 'Průměrná porodnost',
+    description: 'Počet dětí na ženu,',
     selected: false,
   },
 };
