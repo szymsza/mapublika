@@ -1,19 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Button, cx, IconButton, Input, Radio, Select } from '@vechaiui/react';
+import { Button, cx, IconButton, Input, Radio, Select, Spinner } from '@vechaiui/react';
 
 import UploadIcon from '../../assets/icons/upload.svg';
+import { sendDataset, UploadDatasetFormData } from '../../api';
 
-export interface UploadDatasetFormData {
-  file: File | null;
-  value_occurences: string;
-  value_code: string;
-  location_text: string;
-  localization_type: string;
-  averaging: boolean;
-}
-
-const submitForm = (e: { preventDefault: () => void; }, formData: UploadDatasetFormData): boolean => {
+const submitForm = async (e: { preventDefault: () => void; }, formData: UploadDatasetFormData): Promise<boolean> => {
   e.preventDefault();
 
   for (const value of Object.values(formData)) {
@@ -23,24 +15,31 @@ const submitForm = (e: { preventDefault: () => void; }, formData: UploadDatasetF
     }
   }
 
-  console.log(formData);
-  return false;
+  if (!await sendDataset(formData)) {
+    window.alert("Soubor se nepodařilo nahrát, opakujte prosím akci později");
+    return false
+  }
+
+  return true;
 }
+
+const defaultFormData = {
+  file: null,
+  value_occurrences: '',
+  value_code: '',
+  location_text: '',
+  localization_type: 'Kod-obec',
+  average: false,
+};
 
 const UploadDataset = () => {
   const [showDialog, setShowDialog] = useState(false);
   const completeButtonRef = useRef(null);
   const handleOpen = () => setShowDialog(true);
   const handleClose = () => setShowDialog(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const [formData, setFormData] = useState<UploadDatasetFormData>({
-    file: null,
-    value_occurences: '',
-    value_code: '',
-    location_text: '',
-    localization_type: 'Kod-obec',
-    averaging: false,
-  });
+  const [formData, setFormData] = useState<UploadDatasetFormData>(defaultFormData);
 
   return (
     <div>
@@ -92,7 +91,17 @@ const UploadDataset = () => {
                 )}
               >
               </button>
-              <form method="post" onSubmit={(e) => submitForm(e, formData)}>
+              <form method="post" onSubmit={async (e) => {
+                setLoading(true);
+                let success: boolean = await submitForm(e, formData);
+                if (!success) {
+                  setLoading(false);
+                  return;
+                }
+                setLoading(false);
+                setShowDialog(false);
+                setFormData(defaultFormData);
+              }}>
                 <div className="flex-1 px-6 py-2">
 
                   <div className="flex justify-center mt-4">
@@ -118,14 +127,14 @@ const UploadDataset = () => {
 
                   <div className="flex justify-center mt-4">
                     <div className="mb-3 xl:w-96">
-                      <label htmlFor="value_occurences"
+                      <label htmlFor="value_occurrences"
                              className="form-label inline-block mb-2 text-gray-700">
                         Název sloupce s četností jevu
                       </label>
-                      <Input id="value_occurences" value={formData.value_occurences}
+                      <Input id="value_occurrences" value={formData.value_occurrences}
                              onChange={(e) => setFormData({
                                ...formData,
-                               value_occurences: e.target.value,
+                               value_occurrences: e.target.value,
                              })}
                              placeholder="Zadejte přesný název" />
                     </div>
@@ -189,15 +198,15 @@ const UploadDataset = () => {
                         Průměrovat jev (lze jen u numerických dat)?
                       </label>
                       <Radio.Group
-                        value={formData.averaging ? 'true' : 'false'}
+                        value={formData.average ? 'true' : 'false'}
                         onChange={(_, val) => setFormData({
                           ...formData,
-                          averaging: val === 'true',
+                          average: val === 'true',
                         })}>
-                        <Radio name="averaging" value="true">
+                        <Radio name="average" value="true">
                           Ano
                         </Radio>
-                        <Radio name="averaging" value="false">
+                        <Radio name="average" value="false">
                           Ne
                         </Radio>
                       </Radio.Group>
@@ -214,6 +223,9 @@ const UploadDataset = () => {
                   </Button>
                 </footer>
               </form>
+              { loading && <div className="absolute w-full h-full bg-white/75 z-10">
+                <Spinner className="text-red-600 absolute top-1/2 left-1/2 -ml-8 -mt-8" size="xl" />
+              </div> }
             </div>
           </Transition.Child>
         </Dialog>

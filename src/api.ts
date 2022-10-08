@@ -47,7 +47,7 @@ const getColours = (dataset: DatasetValue): Record<string, DatasetUnitData> => {
     key,
     Object.fromEntries(Object.entries(value).map(([key2, value2]) =>
       // @ts-ignore
-      [key2, (value2 - minValues[key2]) / difference[key2]]
+      [key2, (value2 - minValues[key2]) / difference[key2]],
     )),
   ])));
 
@@ -57,7 +57,7 @@ const getColours = (dataset: DatasetValue): Record<string, DatasetUnitData> => {
     // @ts-ignore
     result[key] = {
       value: dataset[key],
-      percentage: withPercentage[key]
+      percentage: withPercentage[key],
     };
   }
 
@@ -87,5 +87,43 @@ export const loadDataset = async (id: string): Promise<DatasetData> => {
     counties: getColours(response.okresy),
   }
 }
+
+export interface UploadDatasetFormData {
+  file: File | null;
+  value_occurrences: string;
+  value_code: string;
+  location_text: string;
+  localization_type: string;
+  average: boolean;
+}
+
+export const sendDataset = async (data: UploadDatasetFormData): Promise<boolean> => {
+  if (!data.file) {
+    return new Promise(() => {
+    });
+  }
+
+  let formData = new FormData();
+
+  for (let [key, value] of Object.entries(data)) {
+    formData.append(key, value);
+  }
+
+  let result = false;
+
+  await api.post(`/files/${data.file.name}/`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer 5231567986432',
+    },
+  }).then(() => {
+    result = true;
+  })
+    .catch(() => {
+      result = false;
+    });
+
+  return result;
+};
 
 export default api;
