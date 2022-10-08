@@ -11,17 +11,6 @@ interface MapProps {
   dataset: DatasetCompleteData;
 }
 
-const colouring = {
-  regions: {
-    'CZ010': '#123456',
-    'CZ051': '#248735',
-  },
-  counties: {
-    'CZ0523': '#d13497',
-    'CZ0642': '#f01945',
-  },
-};
-
 const Map: React.FC<MapProps> = ({ dataset }) => {
   const resolution = useRecoilValue(mapResolutionState);
   const map = useRef<HTMLDivElement>(null);
@@ -46,22 +35,24 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
       return;
     }
 
-    console.log(dataset);
+    for (let [areaId, areaData] of Object.entries(dataset.data[resolution])) {
+      console.log(areaData);
+      const percentage = areaData.percentage[1];
 
-    // TODO - new colouring based on data
+      // TODO - set tooltip to areaData.value[0];
 
-    const colours = colouring[resolution];
+      // TODO - change zeroes above to column chosen from select
 
-    for (let [areaId, colour] of Object.entries(colours)) {
       const areaElement: SVGPathElement | null | undefined = map.current?.querySelector(`svg [data-area-id="${areaId}"]`);
 
       if (!areaElement) {
         continue;
       }
 
-      areaElement.setAttribute('fill', colour);
+      areaElement.setAttribute('fill', '#123456');
+      areaElement.setAttribute('opacity', (0.5 + (parseFloat(percentage) / 2)).toString());
     }
-  }, [map, colouring, resolution, dataset]);
+  }, [map, resolution, dataset]);
 
   return (
     <div className="border w-1/2 p-6 relative" ref={map}>
