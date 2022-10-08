@@ -37,21 +37,19 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
     }
 
     for (let [areaId, areaData] of Object.entries(dataset.data[resolution])) {
-      console.log(areaData);
-      const percentage = areaData.percentage[1];
-
-      // TODO - set tooltip to areaData.value[0];
-
-      // TODO - change zeroes above to column chosen from select
-
       const areaElement: SVGPathElement | null | undefined = map.current?.querySelector(`svg [data-area-id="${areaId}"]`);
 
       if (!areaElement) {
         continue;
       }
 
+      // TODO - change zeroes below to column chosen from select
+      const percentage = areaData.percentage[1];
+      const tooltipValue = areaElement.getAttribute("data-label") + ": " + Math.round(areaData.value[1]);
+
       areaElement.setAttribute('fill', mapColours[dataset.index % mapColours.length]);
       areaElement.setAttribute('opacity', (0.5 + (parseFloat(percentage) / 2)).toString());
+      areaElement.innerHTML = `<title>${tooltipValue}</title>`;
     }
   }, [map, resolution, dataset]);
 
