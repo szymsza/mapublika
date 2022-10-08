@@ -20,6 +20,7 @@ export type MojeIDData = {
 export type Dataset = {
   id: string;
   label: string;
+  description: string;
   selected: boolean;
 };
 

@@ -3,9 +3,11 @@ import Regions from '../../assets/maps/regions';
 import Counties from '../../assets/maps/counties';
 import { useRecoilValue } from 'recoil';
 import { mapResolutionState } from '../../store/atoms';
+import { DatasetCompleteData } from '../../store/types';
+import { Spinner } from '@vechaiui/react'
 
 interface MapProps {
-  title: string;
+  dataset: DatasetCompleteData;
 }
 
 const colouring = {
@@ -19,11 +21,25 @@ const colouring = {
   },
 };
 
-const Map: React.FC<MapProps> = ({ title }) => {
+const Map: React.FC<MapProps> = ({ dataset }) => {
   const resolution = useRecoilValue(mapResolutionState);
   const map = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (dataset.data) {
+      return;
+    }
+
+    // TODO - load data from API
+  }, [dataset]);
+
+  useEffect(() => {
+    if (!dataset.data) {
+      return;
+    }
+
+    // TODO - new colouring based on data
+
     const colours = colouring[resolution];
 
     for (let [areaId, colour] of Object.entries(colours)) {
@@ -35,13 +51,16 @@ const Map: React.FC<MapProps> = ({ title }) => {
 
       areaElement.setAttribute('fill', colour);
     }
-  }, [map, colouring, resolution]);
+  }, [map, colouring, resolution, dataset]);
 
   return (
-    <div className="border w-1/2 p-6" ref={map}>
-      <h2 className="text-xl font-bold">{title}</h2>
-      {resolution === 'regions' && <Regions />}
-      {resolution === 'counties' && <Counties />}
+    <div className="border w-1/2 p-6 relative" ref={map}>
+      <h2 className="text-xl font-bold">{dataset.description}</h2>
+      <div className={dataset.data ? '' : 'opacity-0'}>
+        {resolution === 'regions' && <Regions />}
+        {resolution === 'counties' && <Counties />}
+      </div>
+      {!dataset.data && <Spinner className="text-red-600 absolute top-1/2 left-1/2 -ml-8 -mt-8" size="xl" />}
     </div>
   );
 }

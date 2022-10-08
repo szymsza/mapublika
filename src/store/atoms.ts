@@ -23,10 +23,12 @@ export const datasetsState = atom<Dataset[]>({
     {
       id: 'abortions',
       label: 'Potraty',
+      description: 'Počet potratů na 1000 obyvatel',
       selected: false,
     }, {
       id: 'porodnost',
       label: 'Porodnost',
+      description: 'Počet dětí na ženu',
       selected: true,
     },
   ],
