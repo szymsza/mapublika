@@ -8,6 +8,7 @@ const Maps = () => {
 
   return (
     <div className="flex gap-4">
+      {!datasets.length && <p>Vyberte datovou sadu z menu výše</p>}
       {
         datasets.map(dataset => (
           <Map dataset={dataset} key={dataset.id} />

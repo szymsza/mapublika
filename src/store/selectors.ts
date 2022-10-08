@@ -19,7 +19,7 @@ export const datasetsCompleteData = selector<DatasetCompleteData[]>({
     return datasets.filter((d) => d.selected)
       .map((dataset) => ({
         ...dataset,
-        data: datasetData[dataset.id] ?? null,
+        data: datasetData[dataset.id] ?? {},
       }));
   },
 });

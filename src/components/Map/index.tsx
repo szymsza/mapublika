@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { mapResolutionState } from '../../store/atoms';
 import { DatasetCompleteData } from '../../store/types';
 import { Spinner } from '@vechaiui/react'
+import api from '../../api';
 
 interface MapProps {
   dataset: DatasetCompleteData;
@@ -29,6 +30,11 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
     if (dataset.data) {
       return;
     }
+
+    // TODO - url = dataset.id
+    api.get("/porodnost").then((data) => {
+      console.log(data);
+    });
 
     // TODO - load data from API
   }, [dataset]);
