@@ -12,24 +12,10 @@ export const mapColours = [
 ];
 
 export const publicDatasets = {
-  'akutni-pece': {
-    id: 'akutni-pece',
-    label: 'Akutní péče',
-    description: 'Co to je',
-    selected: false,
-  },
-
   'vira': {
     id: 'vira',
     label: 'Víra',
-    description: 'Víra',
-    selected: false,
-  },
-
-  'sldb2021_vira': {
-    id: 'sldb2021_vira',
-    label: 'Víra',
-    description: 'Víra',
+    description: 'Počet příslušníků církve, na tisíc obyvatel: ',
     selected: false,
   },
 

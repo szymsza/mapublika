@@ -24,7 +24,7 @@ const DatasetsCheckboxes = () => {
       getPublicDatasets()
         .then((data) => {
           // @ts-ignore
-          setDatasets(data.map(item => publicDatasets[item]));
+          setDatasets(Array.from(new Set(data)).filter(item => publicDatasets[item]).map(item => publicDatasets[item]));
           setDatasetsLoaded({
             ...datasetsLoaded,
             public: 'loaded',
