@@ -5,11 +5,26 @@ import { Button, cx, IconButton, Input, Radio, Select } from '@vechaiui/react';
 import UploadIcon from '../../assets/icons/upload.svg';
 
 export interface UploadDatasetFormData {
+  file: File | null;
   value_occurences: string;
   value_code: string;
   location_text: string;
   localization_type: string;
   averaging: boolean;
+}
+
+const submitForm = (e: { preventDefault: () => void; }, formData: UploadDatasetFormData): boolean => {
+  e.preventDefault();
+
+  for (const value of Object.values(formData)) {
+    if (typeof value !== "boolean" && (!value || (typeof value === "string" && value.trim() === ""))) {
+      window.alert("Vyplňte prosím všechna políčka formuláře");
+      return false;
+    }
+  }
+
+  console.log(formData);
+  return false;
 }
 
 const UploadDataset = () => {
@@ -19,6 +34,7 @@ const UploadDataset = () => {
   const handleClose = () => setShowDialog(false);
 
   const [formData, setFormData] = useState<UploadDatasetFormData>({
+    file: null,
     value_occurences: '',
     value_code: '',
     location_text: '',
@@ -76,19 +92,27 @@ const UploadDataset = () => {
                 )}
               >
               </button>
-              <form method="post">
+              <form method="post" onSubmit={(e) => submitForm(e, formData)}>
                 <div className="flex-1 px-6 py-2">
 
                   <div className="flex justify-center mt-4">
                     <label htmlFor="formFile"
-                           className="w-100 flex flex-col items-center px-4 py-2 text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue-700 hover:text-white">
+                           className={`w-100 flex flex-col items-center px-4 py-2 text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer 
+                           hover:bg-blue-700 hover:text-white ${formData.file ? "bg-green-600 text-white" : ""}`}>
                       <svg className="w-8 h-8" fill="currentColor"
                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path
                           d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                       </svg>
                       <span className="mt-2 text-base">Zvolte zdrojový csv soubor</span>
-                      <input type="file" id="formFile" accept=".csv" className="hidden" />
+                      <input type="file" id="formFile" accept=".csv" className="hidden" onChange={(e) =>
+                        // @ts-ignore
+                        e.target.files.length ? setFormData({
+                        ...formData,
+                        // @ts-ignore
+                        file: e.target.files[0],
+                      }) : null} />
+                      {formData.file && <i className="text-sm">{formData.file.name}</i>}
                     </label>
                   </div>
 
