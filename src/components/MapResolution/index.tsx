@@ -3,7 +3,7 @@ import { Radio, IconButton } from '@vechaiui/react';
 import { useRecoilState } from 'recoil';
 import { mapResolutionState } from '../../store/atoms';
 
-const MapResolution = () => {
+const MapSettings = () => {
   const [resolution, setResolution] = useRecoilState(mapResolutionState);
 
   return (
@@ -26,4 +26,4 @@ const MapResolution = () => {
   );
 }
 
-export default MapResolution;
+export default MapSettings;
