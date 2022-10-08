@@ -42,5 +42,6 @@ export type DatasetsData = Record<string, DatasetData>;
 export type MapResolution = "regions" | "counties";
 
 export type DatasetCompleteData = Dataset & {
+  index: number;
   data: DatasetData | null;
 };
