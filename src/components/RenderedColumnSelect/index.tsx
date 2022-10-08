@@ -10,7 +10,7 @@ const RenderedColumnSelect: React.FC<RenderedColumnSelectProps> = ({ state, valu
   const [value, setValue] = state;
 
   return (
-    <div className="inline-block mb-4 rounded-lg shadow-md border items-start lg:absolute mt-6 top-0 right-6 bg-white">
+    <div className="inline-block mb-4 rounded-lg shadow-md border items-start lg:absolute mt-6 top-0 right-6 bg-white  max-w-[48%]">
       <label>
         <h2 className="text-xl border-b text-center py-3 px-5">
           Zvolte zobrazovanou hodnotu

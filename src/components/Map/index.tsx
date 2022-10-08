@@ -76,10 +76,12 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
   return (
     <div className="w-full lg:w-1/2 px-2 pb-4">
       <div className="border p-6 relative" ref={map}>
-        <h2 className="text-xl font-bold">{dataset.description} {renderedColumn}</h2>
+        <h2 className="text-xl font-bold relative z-20 max-w-[48%]">{dataset.description} {renderedColumn}</h2>
         <div className={dataset.data ? '' : 'opacity-0'}>
+          <div className="">
           {resolution === 'regions' && <Regions />}
           {resolution === 'counties' && <Counties />}
+          </div>
           <RenderedColumnSelect state={[renderedColumn, setRenderedColumn]} values={columnOptions} />
         </div>
         {!dataset.data &&
