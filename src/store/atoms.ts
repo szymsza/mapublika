@@ -47,3 +47,18 @@ export const zipCodeState = atom<string>({
   key: 'zipCode',
   default: '',
 });
+
+export const questionsState = atom<Record<string, string>>({
+  key: "questionst",
+  default: {},
+});
+
+export const questionStepState = atom<number>({
+  key: 'questionStep',
+  default: 0,
+});
+
+export const questionsCorrect = atom<number>({
+  key: 'questionCorrect',
+  default: 0,
+});
