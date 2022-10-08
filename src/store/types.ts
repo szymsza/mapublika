@@ -24,11 +24,12 @@ export type Dataset = {
   selected: boolean;
 };
 
-export type DatasetUnitValue = number | Record<string, number>;
+export type DatasetUnitValue = Record<string, number>;
+export type DatasetUnitColor = Record<string, string>;
 
 export type DatasetUnitData = {
   value: DatasetUnitValue;
-  color: string;
+  percentage: DatasetUnitColor;
 };
 
 export type DatasetData = {

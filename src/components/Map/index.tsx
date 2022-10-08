@@ -46,6 +46,8 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
       return;
     }
 
+    console.log(dataset);
+
     // TODO - new colouring based on data
 
     const colours = colouring[resolution];
