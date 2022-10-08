@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import Regions from '../../assets/maps/regions';
 import Counties from '../../assets/maps/counties';
-import { useRecoilValue } from 'recoil';
-import { mapResolutionState } from '../../store/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { datasetsDataState, mapResolutionState } from '../../store/atoms';
 import { DatasetCompleteData } from '../../store/types';
 import { Spinner } from '@vechaiui/react'
-import api from '../../api';
+import { loadDataset } from '../../api';
 
 interface MapProps {
   dataset: DatasetCompleteData;
@@ -25,18 +25,20 @@ const colouring = {
 const Map: React.FC<MapProps> = ({ dataset }) => {
   const resolution = useRecoilValue(mapResolutionState);
   const map = useRef<HTMLDivElement>(null);
+  const [datasetsData, setDatasetsData] = useRecoilState(datasetsDataState);
 
   useEffect(() => {
     if (dataset.data) {
       return;
     }
 
-    // TODO - url = dataset.id
-    api.get("/porodnost").then((data) => {
-      console.log(data);
-    });
-
-    // TODO - load data from API
+    loadDataset(dataset.id)
+      .then((result) => {
+        setDatasetsData({
+          ...datasetsData,
+          [dataset.id]: result,
+        });
+      });
   }, [dataset]);
 
   useEffect(() => {
