@@ -28,7 +28,7 @@ export const datasetsState = atom<Dataset[]>({
     }, {
       id: 'porodnost',
       label: 'Porodnost',
-      description: 'Počet dětí na ženu',
+      description: 'Počet žen na tisíc obyvatel s počtem dětí',
       selected: true,
     },
   ],

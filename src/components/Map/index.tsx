@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Regions from '../../assets/maps/regions';
 import Counties from '../../assets/maps/counties';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -7,6 +7,7 @@ import { DatasetCompleteData } from '../../store/types';
 import { Spinner } from '@vechaiui/react'
 import { loadDataset } from '../../api';
 import { mapColours } from '../../config';
+import RenderedColumnSelect from '../RenderedColumnSelect';
 
 interface MapProps {
   dataset: DatasetCompleteData;
@@ -16,6 +17,16 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
   const resolution = useRecoilValue(mapResolutionState);
   const map = useRef<HTMLDivElement>(null);
   const [datasetsData, setDatasetsData] = useRecoilState(datasetsDataState);
+  const [renderedColumn, setRenderedColumn] = useState<string>();
+  let columnOptions: string[] = [];
+
+
+  if (dataset.data) {
+    columnOptions = Object.keys(Object.values(dataset.data[resolution])[0].value);
+    if (renderedColumn === undefined) {
+      setRenderedColumn(columnOptions[0]);
+    }
+  }
 
   useEffect(() => {
     if (dataset.data) {
@@ -32,7 +43,7 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
   }, [dataset]);
 
   useEffect(() => {
-    if (!dataset.data) {
+    if (!dataset.data || renderedColumn === undefined) {
       return;
     }
 
@@ -43,23 +54,23 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
         continue;
       }
 
-      // TODO - change zeroes below to column chosen from select
-      const percentage = areaData.percentage[1];
-      const tooltipValue = areaElement.getAttribute("data-label") + ": " + Math.round(areaData.value[1]);
+      const percentage = areaData.percentage[renderedColumn];
+      const tooltipValue = areaElement.getAttribute("data-label") + ": " + Math.round(areaData.value[renderedColumn]);
 
       areaElement.setAttribute('fill', mapColours[dataset.index % mapColours.length]);
       areaElement.setAttribute('opacity', (0.5 + (parseFloat(percentage) / 2)).toString());
       areaElement.innerHTML = `<title>${tooltipValue}</title>`;
     }
-  }, [map, resolution, dataset]);
+  }, [map, resolution, dataset, renderedColumn]);
 
   return (
     <div className="w-full lg:w-1/2 px-2 pb-4">
       <div className="border p-6 relative" ref={map}>
-        <h2 className="text-xl font-bold">{dataset.description} {dataset.index}</h2>
+        <h2 className="text-xl font-bold">{dataset.description} {renderedColumn}</h2>
         <div className={dataset.data ? '' : 'opacity-0'}>
           {resolution === 'regions' && <Regions />}
           {resolution === 'counties' && <Counties />}
+          <RenderedColumnSelect state={[renderedColumn, setRenderedColumn]} values={columnOptions} />
         </div>
         {!dataset.data &&
           <Spinner className="text-red-600 absolute top-1/2 left-1/2 -ml-8 -mt-8" size="xl" />}
