@@ -31,7 +31,6 @@
       document.addEventListener("DOMContentLoaded", function () {
 
         function parseClaims(clientClaims) {
-          console.log("claims", clientClaims);
           var claims = {}
           for (var name in clientClaims) {
             claims[clientClaims[name][0]] = {'essential': clientClaims[name][1]}
@@ -58,12 +57,12 @@
           parseClaimsCallback: parseClaims,
           formCallback: fillForm,
           claims: [
-            ['given_name', true],
-            ['family_name', true],
-            ['email', true],
-            ['phone_number', true],
+            ['given_name', false],
+            ['family_name', false],
+            ['email', false],
+            ['phone_number', false],
             ['nickname', false],
-            ['address', false],
+            ['address', true],
             ['birthdate', false],
             ['gender', false],
             ['website', false],
