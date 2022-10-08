@@ -17,4 +17,10 @@ export type MojeIDData = {
   sub: string;
 };
 
+export type Dataset = {
+  id: string;
+  label: string;
+  selected: boolean;
+};
+
 export type MapResolution = "regions" | "counties";

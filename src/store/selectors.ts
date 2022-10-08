@@ -1,10 +1,10 @@
 import { selector } from 'recoil';
-import { textState } from './atoms';
+import { datasetsState } from './atoms';
 
-export const textLengthState = selector({
-  key: 'textLength',
+export const checkedDatasetsIds = selector<string[]>({
+  key: 'checkedDatasetsIds',
   get: ({ get }) => {
-    const text = get(textState);
-    return text.length;
+    const datasets = get(datasetsState);
+    return datasets.filter((d) => d.selected).map((d) => d.id);
   }
 });
