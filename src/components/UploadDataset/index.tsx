@@ -64,20 +64,13 @@ const UploadDataset = () => {
                       <div className="flex-1 px-6 py-2">
 
                       <div className="flex justify-center mt-4">
-                        {/* <div className="mb-3 xl:w-96">
-                          <label htmlFor="formFile" className="form-label inline-block mb-2 text-gray-700"></label>
-                          <Input className="" type="file" id="formFile" accept=".csv" />
-                        </div> */}
-
-                        <div>
                         <label htmlFor="formFile" className="w-100 flex flex-col items-center px-4 py-2 text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue-700 hover:text-white">
-        <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-        </svg>
-        <span className="mt-2 text-base">Zvolte zdrojový csv soubor</span>
-        <input type="file" id="formFile" accept=".csv" className="hidden" />
-    </label>
-                        </div>
+                            <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                            </svg>
+                            <span className="mt-2 text-base">Zvolte zdrojový csv soubor</span>
+                            <input type="file" id="formFile" accept=".csv" className="hidden" />
+                        </label>
                       </div>
 
                       <div className="flex justify-center mt-4">
