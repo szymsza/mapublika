@@ -5,7 +5,7 @@ import DatasetsCheckboxes from '../../components/DatasetsCheckboxes';
 
 const Home = () => (
   <div className="home px-8">
-    <div className="flex items-start pt-6 pb-6">
+    <div className="flex items-start flex-col justify-center lg:justify-start lg:flex-row pt-6 pb-6">
       <DatasetsCheckboxes />
       <MapResolution />
     </div>

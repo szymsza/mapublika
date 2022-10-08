@@ -14,7 +14,7 @@ const Header = () => {
 
       <div className="flex items-center gap-6">
         <NavLink end={true} to="/interactive" className="inline-flex items-center gap-4 border-r border-solid border-slate-400 px-6 hover:bg-slate-300 py-3">
-          <span>Interaktivní mód</span>
+          <span className="hidden md:inline">Interaktivní mód</span>
           <img src={hacker} className="w-16" alt="Interaktivní mód" />
         </NavLink>
         <Login />
