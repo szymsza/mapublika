@@ -22,6 +22,7 @@ export type Dataset = {
   label: string;
   description: string;
   selected: boolean;
+  type: 'user' | 'public';
 };
 
 export type DatasetUnitValue = Record<string, number>;

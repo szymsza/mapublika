@@ -120,6 +120,39 @@ export const loadDataset = async (id: string): Promise<DatasetData> => {
   }
 }
 
+export const loadUserDataset = async (id: string): Promise<DatasetData> => {
+  let response: DatasetResponse;
+
+  await api.get(`/dataset/${id}/`, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + getUserToken(),
+    },
+  })
+    .then(({ data }: AxiosResponse<DatasetResponse>) => {
+      response = data;
+    });
+
+  // @ts-ignore
+  // @ts-ignore
+  if (!response) {
+    return {
+      regions: {},
+      counties: {},
+    };
+  }
+
+  console.log({
+    regions: getColours(response.kraje ? response.kraje : response.kraj),
+    counties: getColours(response.okresy ? response.okresy : response.okres),
+  });
+
+  return {
+    regions: getColours(response.kraje ? response.kraje : response.kraj),
+    counties: getColours(response.okresy ? response.okresy : response.okres),
+  }
+}
+
 export interface UploadDatasetFormData {
   file: File | null;
   value_occurrences: string;
@@ -181,7 +214,6 @@ export const getUserDatasets = async (): Promise<string[]> => {
     },
   }).then(({ data }: AxiosResponse<string[]>) => {
     response = data;
-    console.log(data);
   });
 
   if (!response) {

@@ -17,6 +17,7 @@ export const publicDatasets = {
     label: 'Víra',
     description: 'Počet příslušníků církve, na tisíc obyvatel: ',
     selected: false,
+    type: 'public',
   },
 
   'pocetDeti': {
@@ -24,6 +25,7 @@ export const publicDatasets = {
     label: 'Porodnost',
     description: 'Počet žen na tisíc obyvatel s počtem dětí',
     selected: false,
+    type: 'public',
   },
 
   'pocetDetiAverage': {
@@ -31,5 +33,6 @@ export const publicDatasets = {
     label: 'Průměrná porodnost',
     description: 'Počet dětí na ženu,',
     selected: false,
+    type: 'public',
   },
 };

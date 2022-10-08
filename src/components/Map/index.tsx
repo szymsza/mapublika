@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { datasetsDataState, mapResolutionState } from '../../store/atoms';
 import { DatasetCompleteData } from '../../store/types';
 import { Spinner } from '@vechaiui/react'
-import { loadDataset } from '../../api';
+import { loadDataset, loadUserDataset } from '../../api';
 import { mapColours } from '../../config';
 import RenderedColumnSelect from '../RenderedColumnSelect';
 
@@ -33,13 +33,23 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
       return;
     }
 
-    loadDataset(dataset.id)
-      .then((result) => {
-        setDatasetsData({
-          ...datasetsData,
-          [dataset.id]: result,
+    if (dataset.type === 'public') {
+      loadDataset(dataset.id)
+        .then((result) => {
+          setDatasetsData({
+            ...datasetsData,
+            [dataset.id]: result,
+          });
         });
-      });
+    } else {
+      loadUserDataset(dataset.id)
+        .then((result) => {
+          setDatasetsData({
+            ...datasetsData,
+            [dataset.id]: result,
+          });
+        });
+    }
   }, [dataset]);
 
   useEffect(() => {
