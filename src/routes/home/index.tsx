@@ -8,7 +8,7 @@ const Home = () => {
     return (
       <div className="home">
           <h1 className="text-3xl font-bold underline">Home</h1>
-          <button onClick={() => window.mojeID.requestAuthentication.bind(window.mojeID)}>LOGIN</button>
+          <button onClick={() => window.mojeID.requestAuthentication.bind(window.mojeID)()}>LOGIN</button>
 
           <Regions />
           <Counties />
