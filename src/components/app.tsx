@@ -11,18 +11,21 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 import { RecoilRoot } from 'recoil';
+import { VechaiProvider } from '@vechaiui/theme';
 
 const App = () => (
   <div id="app">
     <RecoilRoot>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile/" element={<Profile user="me" />} />
-          <Route path="/profile/:user" element={<Profile />} />
-        </Routes>
-      </Router>
+      <VechaiProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile/" element={<Profile user="me" />} />
+            <Route path="/profile/:user" element={<Profile />} />
+          </Routes>
+        </Router>
+      </VechaiProvider>
     </RecoilRoot>
   </div>
 );
