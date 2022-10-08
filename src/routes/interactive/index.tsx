@@ -38,4 +38,5 @@ const Interactive = () => {
     );
 };
   
+// @ts-ignore
 export default Interactive;
