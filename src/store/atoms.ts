@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Dataset, MapResolution, MojeIDData } from './types';
+import { Dataset, DatasetsData, MapResolution, MojeIDData } from './types';
 
 export const mojeIDStorageKey = 'mojeIDLoggedIn';
 export const mojeIDDataState = atom<MojeIDData | null>({
@@ -30,4 +30,9 @@ export const datasetsState = atom<Dataset[]>({
       selected: true,
     },
   ],
+});
+
+export const datasetsDataState = atom<DatasetsData>({
+  key: 'datasetsData',
+  default: {},
 });

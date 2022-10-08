@@ -23,4 +23,20 @@ export type Dataset = {
   selected: boolean;
 };
 
+export type DatasetUnitData = {
+  value: number;
+  color: string;
+};
+
+export type DatasetData = {
+  regions: Record<string, DatasetUnitData>;
+  counties: Record<string, DatasetUnitData>;
+};
+
+export type DatasetsData = Record<string, DatasetData>;
+
 export type MapResolution = "regions" | "counties";
+
+export type DatasetCompleteData = Dataset & {
+  data: DatasetData | null;
+};
