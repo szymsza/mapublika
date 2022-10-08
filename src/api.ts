@@ -1,10 +1,42 @@
 import axios, { AxiosResponse } from 'axios';
 import { API_URL } from './config';
 import { DatasetData, DatasetUnitData } from './store/types';
+import { mojeIDStorageKey } from './store/atoms';
 
 const api = axios.create({
   baseURL: API_URL,
 });
+
+// Credits: https://stackoverflow.com/a/1349426
+const random = (length: number): string => {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() *
+      charactersLength));
+  }
+  return result;
+}
+
+export const arbitraryIDStorageKey = 'customID';
+export const getUserToken = (): string => {
+  const parsed = JSON.parse(localStorage.getItem(mojeIDStorageKey)!);
+
+  if (parsed) {
+    return parsed.sub;
+  }
+
+  const arbitraryID = localStorage.getItem(arbitraryIDStorageKey);
+
+  if (arbitraryID) {
+    return arbitraryID;
+  }
+
+  const newId = random(45);
+  localStorage.setItem(arbitraryIDStorageKey, newId);
+  return newId;
+};
 
 type DatasetValue = Record<string, Record<string, number>>;
 
@@ -114,7 +146,7 @@ export const sendDataset = async (data: UploadDatasetFormData): Promise<boolean>
   await api.post(`/files/${data.file.name}/`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer 5231567986432',
+      'Authorization': 'Bearer ' + getUserToken(),
     },
   }).then(() => {
     result = true;
