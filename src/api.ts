@@ -125,12 +125,13 @@ export const loadUserDataset = async (id: string): Promise<DatasetData> => {
 
   await api.get(`/dataset/${id}/`, {
     headers: {
-      'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer ' + getUserToken(),
+      'accept': 'application/json, text/plain, */*'
     },
   })
     .then(({ data }: AxiosResponse<DatasetResponse>) => {
-      response = data;
+      // @ts-ignore
+      response = JSON.parse(data.replaceAll("'", '"'));
     });
 
   // @ts-ignore
