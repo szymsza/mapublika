@@ -51,7 +51,7 @@
           }
         }
 
-        var mojeID = createMojeidConnect({
+        window.mojeID = createMojeidConnect({
           clientName: "Ukázkový formulář",
           parseClaimsCallback: parseClaims,
           formCallback: fillForm,
@@ -69,15 +69,11 @@
           ],
           registrationSuccessCallback: function () {
             console.log("success");
-            document.getElementById("button-prefill").removeAttribute("disabled");
-            document.getElementsByClassName("error-message")[0].textContent = "";
           },
           registrationFailureCallback: function () {
             console.log("failure");
-            document.getElementsByClassName("error-message")[0].textContent = "Registrace klienta se nezdařila.";
           }
         });
-        document.getElementById("button-prefill").addEventListener("click", mojeID.requestAuthentication.bind(mojeID));
       });
     </script>
   </head>

@@ -4,7 +4,7 @@ export {};
 
 declare global {
   interface Window {
-    mojeId: {
+    mojeID: {
       requestAuthentication: () => void;
     }
   }
