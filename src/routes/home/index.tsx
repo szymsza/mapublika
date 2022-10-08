@@ -5,8 +5,10 @@ import DatasetsCheckboxes from '../../components/DatasetsCheckboxes';
 
 const Home = () => (
   <div className="home px-8">
-    <MapResolution />
-    <DatasetsCheckboxes />
+    <div className="flex items-start pt-6 pb-6">
+      <DatasetsCheckboxes />
+      <MapResolution />
+    </div>
     <Maps />
   </div>
 );
