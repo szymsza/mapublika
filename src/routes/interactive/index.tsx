@@ -10,15 +10,21 @@ const Interactive = () => {
 
     // animate hacker for 1s
     const [hackerSrc, setHackerSrc] = useState('');
+    const [isHackerAnimated, setHackerAnimated] = useState(false);
+
     useEffect(() => {
-        setHackerSrc(hackerGif);
-      }, []);
+        if (isHackerAnimated) {
+            setHackerSrc(hackerGif);
+            const timer = setTimeout(() => {
+                setHackerSrc(hackerStill);
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [isHackerAnimated]);
+
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setHackerSrc(hackerStill);
-        }, 1000);
-        return () => clearTimeout(timer);
-      }, []);
+        setHackerAnimated(true);
+    })
 
     return (
     <div className="home px-8 text-center">
