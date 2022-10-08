@@ -38,24 +38,16 @@
           return claims
         }
 
-        function fillForm(uiDict) {
-          console.log("uiDict", uiDict);
-          for (var field_name in uiDict) {
-            var nodes = document.querySelectorAll(
-                "input[name=" + field_name + "], " +
-                "select[name=" + field_name + "], " +
-                "textarea[name=" + field_name + "]"
-            )
-            if (nodes.length) {
-              this.setValueToElements(nodes, this.decodeValue(uiDict[field_name]))
-            }
+        function dataCallback(userData) {
+          if (userData && window.setMojeIDLoginData) {
+            window.setMojeIDLoginData(userData);
           }
         }
 
         window.mojeID = createMojeidConnect({
-          clientName: "Ukázkový formulář",
+          clientName: "Mapublika",
           parseClaimsCallback: parseClaims,
-          formCallback: fillForm,
+          formCallback: dataCallback,
           claims: [
             ['given_name', false],
             ['family_name', false],
@@ -69,10 +61,10 @@
             ['profile', false]
           ],
           registrationSuccessCallback: function () {
-            console.log("success");
+            window.setMojeIDInitialized(true);
           },
           registrationFailureCallback: function () {
-            console.log("failure");
+            window.setMojeIDInitialized(false);
           }
         });
       });

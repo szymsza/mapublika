@@ -4,10 +4,10 @@ import Counties from '../../assets/maps/counties';
 import Towns from '../../assets/maps/towns';
 import { Checkbox, Radio, IconButton, Icon, ExclamationIcon } from "@vechaiui/react";
 import UploadIcon from '../../assets/icons/upload.svg';
+import Login from '../../components/login';
 
 const Home = () => (
   <div className="home">
-    <button onClick={() => window.mojeID.requestAuthentication.bind(window.mojeID)()}>LOGIN</button>
     <div className="border m-4 inline-block p-2">
       <label>Úroveň rozlišení</label>
         <Radio.Group defaultValue="1" className="space-x-4" inline>
@@ -32,6 +32,7 @@ const Home = () => (
         <Checkbox color="blue" value="3">data #3</Checkbox>
       </Checkbox.Group>
     </div>
+    <Login />
     <Regions />
     <Counties />
     <Towns />
