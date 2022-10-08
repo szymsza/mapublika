@@ -68,8 +68,10 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
       <div className="border p-6 relative" ref={map}>
         <h2 className="text-xl font-bold">{dataset.description} {renderedColumn}</h2>
         <div className={dataset.data ? '' : 'opacity-0'}>
+          <div className="hover:z-10 hover:relative">
           {resolution === 'regions' && <Regions />}
           {resolution === 'counties' && <Counties />}
+          </div>
           <RenderedColumnSelect state={[renderedColumn, setRenderedColumn]} values={columnOptions} />
         </div>
         {!dataset.data &&
