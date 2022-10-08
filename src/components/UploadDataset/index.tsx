@@ -3,7 +3,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Button, cx, IconButton, Input, Radio, Select, Spinner } from '@vechaiui/react';
 
 import UploadIcon from '../../assets/icons/upload.svg';
-import { sendDataset, UploadDatasetFormData } from '../../api';
+import { getUserDatasets, sendDataset, UploadDatasetFormData } from '../../api';
+import { useRecoilState } from 'recoil';
+import { datasetsUserState } from '../../store/atoms';
 
 const submitForm = async (e: { preventDefault: () => void; }, formData: UploadDatasetFormData): Promise<boolean> => {
   e.preventDefault();
@@ -38,6 +40,7 @@ const UploadDataset = () => {
   const handleOpen = () => setShowDialog(true);
   const handleClose = () => setShowDialog(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [_, setDatasetsUser] = useRecoilState(datasetsUserState);
 
   const [formData, setFormData] = useState<UploadDatasetFormData>(defaultFormData);
 
@@ -101,6 +104,18 @@ const UploadDataset = () => {
                 setLoading(false);
                 setShowDialog(false);
                 setFormData(defaultFormData);
+
+                getUserDatasets()
+                  .then((data) => {
+                    // @ts-ignore
+                    setDatasetsUser(data.map(item => ({
+                      id: item,
+                      label: item,
+                      description: item + ", ",
+                      selected: false,
+                      type: 'user',
+                    })));
+                  });
               }}>
                 <div className="flex-1 px-6 py-2">
 
