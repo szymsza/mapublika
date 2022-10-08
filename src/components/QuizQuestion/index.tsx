@@ -41,7 +41,7 @@ const QuizQuestion = () => {
           step === index ? <div key={index}>
             <div
               className={`text-4xl font-bold mb-6 speech-bubble inline-block mt-6 ${isCorrect ? 'bg-green-500' : (isCorrect === false ? 'bg-red-500' : '')}`}>
-              {question} 🤔
+              {question.replace('pocetDeti', "Počet dětí")} 🤔
             </div>
             <br />
             <Button size="xl" variant="solid" color="primary"
