@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, Switch, Transition } from "@headlessui/react";
-import { Checkbox, IconButton, Button, FormControl, FormLabel, Select } from '@vechaiui/react';
+import { Checkbox, IconButton, Button, FormControl, FormLabel, Select, Input, Radio } from '@vechaiui/react';
 import { cx } from "@vechaiui/react";
 
 import UploadIcon from '../../assets/icons/upload.svg';
@@ -49,8 +49,9 @@ const UploadDataset = () => {
                         Nahrávání vlastních dat
                       </header>
 
-                      <Switch />
-  <Switch defaultChecked />
+                      <p className="px-6">
+                        Pro funkčnost Mapubliky je třeba vyplnit (přesně) všechny údaje:
+                      </p>
 
                       <button
                         onClick={handleClose}
@@ -59,97 +60,72 @@ const UploadDataset = () => {
                         )}
                       >
                       </button>
+                      <form method="post">
                       <div className="flex-1 px-6 py-2">
 
                       <div className="flex justify-center mt-4">
                         <div className="mb-3 xl:w-96">
                           <label htmlFor="formFile" className="form-label inline-block mb-2 text-gray-700">Zvolte zdrojový csv soubor</label>
-                          <input className="form-control block w-full px-3 py-1.5 text-base font-normaltext-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFile" accept=".csv" />
+                          <Input className="" type="file" id="formFile" accept=".csv" />
                         </div>
                       </div>
 
                       <div className="flex justify-center mt-4">
                         <div className="mb-3 xl:w-96">
                           <label htmlFor="exampleFormControlInput1" className="form-label inline-block mb-2 text-gray-700">Název sloupce s četností jevu</label>
-                          <input
-                            type="text"
-                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1"
-                            placeholder="Zadejte přesný název"
-                          />
+                          <Input id="exampleFormControlInput1" placeholder="Zadejte přesný název" />
                         </div>
                       </div>
 
                       <div className="flex justify-center mt-4">
                         <div className="mb-3 xl:w-96">
                           <label htmlFor="exampleFormControlInput1" className="form-label inline-block mb-2 text-gray-700">Název sloupce s popisem jevu</label>
-                          <input
-                            type="text"
-                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1"
-                            placeholder="Zadejte přesný název"
-                          />
+                          <Input id="exampleFormControlInput1" placeholder="Zadejte přesný název" />
                         </div>
                       </div>
 
                       <div className="flex justify-center mt-4">
                         <div className="mb-3 xl:w-96">
                           <label htmlFor="exampleFormControlInput1" className="form-label inline-block mb-2 text-gray-700">Název sloupce s územní jednotkou</label>
-                          <input
-                            type="text"
-                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1"
-                            placeholder="Zadejte přesný název"
-                          />
+                          <Input id="exampleFormControlInput1" placeholder="Zadejte přesný název" />
                         </div>
                       </div>
 
                       <div className="flex justify-center mt-4">
                         <div className="mb-3 xl:w-96">
                           <label htmlFor="exampleFormControlInput1" className="form-label inline-block mb-2 text-gray-700">Rozlišení územní jednotky</label>
-                          <Select placeholder="Outline">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <Select>
+                              <option disabled selected>Vyberte...</option>
+                              <option>Kraj dle kódu (CZ-NUTS)</option>
+                              <option>Kraj dle názvu</option>
+                              <option>Okres dle kódu (CZ-NUTS)</option>
+                              <option>Okres dle názvu</option>
+                              <option>Obec dle kódu</option>
                             </Select>
                         </div>
                       </div>
 
-
-                    <div className="flex flex-wrap w-full p-8 space-x-4">
-                      <FormControl className="flex items-center">
-                        <FormLabel htmlFor="email-alerts" className="mb-0 mr-2">
-                          Enable email alerts?
-                        </FormLabel>
-                        <Switch id="email-alerts" />
-                      </FormControl>
-                    </div>
                       <div className="flex justify-center mt-4">
                         <div className="mb-3 xl:w-96">
                           <label htmlFor="exampleFormControlInput1" className="form-label inline-block mb-2 text-gray-700">Průměrovat jev (lze jen u numerických dat)?</label>
-                          <Switch />
-                          <input
-                            type="text"
-                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1"
-                            placeholder="Zadejte přesný název"
-                          />
+                          <div>
+                            <Radio name="averaging">Ano</Radio>
+                            <Radio name="averaging" className="ml-2" defaultChecked>
+                              Ne
+                            </Radio>
+                          </div>
                         </div>
                       </div>
-
-                      
-                        <p className="text-base font-normal text-neutral-500">
-                          Sit nulla est ex deserunt exercitation anim occaecat. Nostrud
-                          ullamco deserunt aute id consequat veniam incididunt duis in
-                          sint irure nisi. Mollit officia cillum Lorem ullamco minim
-                          nostrud elit officia tempor esse quis.
-                        </p>
                       </div>
                       <footer className="px-6 py-4">
-                        <Button ref={completeButtonRef} variant="light" color="primary" onClick={handleClose}>
-                          Complete
+                        <Button ref={completeButtonRef} variant="solid" color="primary" type="submit">
+                          Odeslat data
+                        </Button>
+                        <Button ref={completeButtonRef} variant="light" onClick={handleClose} className="float-right">
+                          Zavřít
                         </Button>
                       </footer>
+                      </form>
                     </div>
                   </Transition.Child>
                 </Dialog>
