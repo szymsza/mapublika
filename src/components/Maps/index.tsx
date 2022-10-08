@@ -7,10 +7,10 @@ const Maps = () => {
   const datasets = useRecoilValue(datasetsCompleteData);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap -mx-2">
       {!datasets.length && <p>Vyberte datovou sadu z menu výše</p>}
       {
-        datasets.map(dataset => (
+        datasets.map((dataset) => (
           <Map dataset={dataset} key={dataset.id} />
         ))
       }

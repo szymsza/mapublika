@@ -6,21 +6,11 @@ import { datasetsDataState, mapResolutionState } from '../../store/atoms';
 import { DatasetCompleteData } from '../../store/types';
 import { Spinner } from '@vechaiui/react'
 import { loadDataset } from '../../api';
+import { mapColours } from '../../config';
 
 interface MapProps {
   dataset: DatasetCompleteData;
 }
-
-const colouring = {
-  regions: {
-    'CZ010': '#123456',
-    'CZ051': '#248735',
-  },
-  counties: {
-    'CZ0523': '#d13497',
-    'CZ0642': '#f01945',
-  },
-};
 
 const Map: React.FC<MapProps> = ({ dataset }) => {
   const resolution = useRecoilValue(mapResolutionState);
@@ -46,29 +36,36 @@ const Map: React.FC<MapProps> = ({ dataset }) => {
       return;
     }
 
-    // TODO - new colouring based on data
+    for (let [areaId, areaData] of Object.entries(dataset.data[resolution])) {
+      console.log(areaData);
+      const percentage = areaData.percentage[1];
 
-    const colours = colouring[resolution];
+      // TODO - set tooltip to areaData.value[0];
 
-    for (let [areaId, colour] of Object.entries(colours)) {
+      // TODO - change zeroes above to column chosen from select
+
       const areaElement: SVGPathElement | null | undefined = map.current?.querySelector(`svg [data-area-id="${areaId}"]`);
 
       if (!areaElement) {
         continue;
       }
 
-      areaElement.setAttribute('fill', colour);
+      areaElement.setAttribute('fill', mapColours[dataset.index % mapColours.length]);
+      areaElement.setAttribute('opacity', (0.5 + (parseFloat(percentage) / 2)).toString());
     }
-  }, [map, colouring, resolution, dataset]);
+  }, [map, resolution, dataset]);
 
   return (
-    <div className="border w-1/2 p-6 relative" ref={map}>
-      <h2 className="text-xl font-bold">{dataset.description}</h2>
-      <div className={dataset.data ? '' : 'opacity-0'}>
-        {resolution === 'regions' && <Regions />}
-        {resolution === 'counties' && <Counties />}
+    <div className="w-full lg:w-1/2 px-2 pb-4">
+      <div className="border p-6 relative" ref={map}>
+        <h2 className="text-xl font-bold">{dataset.description} {dataset.index}</h2>
+        <div className={dataset.data ? '' : 'opacity-0'}>
+          {resolution === 'regions' && <Regions />}
+          {resolution === 'counties' && <Counties />}
+        </div>
+        {!dataset.data &&
+          <Spinner className="text-red-600 absolute top-1/2 left-1/2 -ml-8 -mt-8" size="xl" />}
       </div>
-      {!dataset.data && <Spinner className="text-red-600 absolute top-1/2 left-1/2 -ml-8 -mt-8" size="xl" />}
     </div>
   );
 }

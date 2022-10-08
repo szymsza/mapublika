@@ -16,7 +16,12 @@ export const datasetsCompleteData = selector<DatasetCompleteData[]>({
     const datasets = get(datasetsState);
     const datasetData = get(datasetsDataState);
 
-    return datasets.filter((d) => d.selected)
+    return datasets
+      .map((dataset,  index) => ({
+        ...dataset,
+        index,
+      }))
+      .filter((d) => d.selected)
       .map((dataset) => ({
         ...dataset,
         data: datasetData[dataset.id] ?? null,
