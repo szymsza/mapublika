@@ -3,7 +3,7 @@ import { Checkbox } from '@vechaiui/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { datasetsLoadedState, datasetsState, datasetsUserState } from '../../store/atoms';
 import { Dataset } from '../../store/types';
-import { checkedDatasetsIds } from '../../store/selectors';
+import { checkedDatasetsIds, checkedDatasetsIdsUser } from '../../store/selectors';
 
 import UploadDataset from '../UploadDataset';
 import { getPublicDatasets, getUserDatasets } from '../../api';
@@ -13,6 +13,7 @@ const DatasetsCheckboxes = () => {
   const [datasets, setDatasets] = useRecoilState(datasetsState);
   const [datasetsUser, setDatasetsUser] = useRecoilState(datasetsUserState);
   const checkedIds = useRecoilValue(checkedDatasetsIds);
+  const checkedIdsUser = useRecoilValue(checkedDatasetsIdsUser);
   const [datasetsLoaded, setDatasetsLoaded] = useRecoilState(datasetsLoadedState);
 
   useEffect(() => {
@@ -38,7 +39,6 @@ const DatasetsCheckboxes = () => {
   useEffect(() => {
 
     if (datasetsLoaded.user === 'none') {
-      console.log(datasetsLoaded.user);
       setDatasetsLoaded({
         ...datasetsLoaded,
         user: 'loading',
@@ -76,8 +76,8 @@ const DatasetsCheckboxes = () => {
           {datasetsUser.length ? (
             <Checkbox.Group
               className=""
-              value={checkedIds}
-              onChange={(newValues) => setDatasets(
+              value={checkedIdsUser}
+              onChange={(newValues) => setDatasetsUser(
                 datasetsUser.map((dataset) => ({
                   ...dataset,
                   selected: newValues.includes(dataset.id),
