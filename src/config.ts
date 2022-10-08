@@ -1,1 +1,1 @@
-export const API_URL = "https://mapublika-api.szymsza.eu/";
+export const API_URL = "https://mapublika-api.szymsza.cz/";
