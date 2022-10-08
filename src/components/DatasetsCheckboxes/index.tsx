@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Checkbox } from '@vechaiui/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { datasetsState } from '../../store/atoms';
@@ -6,10 +6,24 @@ import { Dataset } from '../../store/types';
 import { checkedDatasetsIds } from '../../store/selectors';
 
 import UploadDataset from '../UploadDataset';
+import { getPublicDatasets } from '../../api';
+import { publicDatasets } from '../../config';
 
 const DatasetsCheckboxes = () => {
   const [datasets, setDatasets] = useRecoilState(datasetsState);
   const checkedIds = useRecoilValue(checkedDatasetsIds);
+
+  useEffect(() => {
+
+    if (!datasets.length) {
+      getPublicDatasets()
+        .then((data) => {
+          // @ts-ignore
+          setDatasets(data.map(item => publicDatasets[item]));
+        });
+    }
+
+  }, [datasets]);
 
   return (
     <div className="inline-block mb-4 mr-4 rounded-lg shadow-lg border">

@@ -19,7 +19,8 @@ export const mapResolutionState = atom<MapResolution>({
 
 export const datasetsState = atom<Dataset[]>({
   key: 'datasets',
-  default: [
+  default: [],
+  /*
     {
       id: 'abortions',
       label: 'Potraty',
@@ -31,7 +32,7 @@ export const datasetsState = atom<Dataset[]>({
       description: 'Počet žen na tisíc obyvatel s počtem dětí',
       selected: true,
     },
-  ],
+   */
 });
 
 export const datasetsDataState = atom<DatasetsData>({

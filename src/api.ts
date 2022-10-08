@@ -9,10 +9,10 @@ const api = axios.create({
 
 // Credits: https://stackoverflow.com/a/1349426
 const random = (length: number): string => {
-  var result           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
+  for (var i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() *
       charactersLength));
   }
@@ -99,12 +99,10 @@ const getColours = (dataset: DatasetValue): Record<string, DatasetUnitData> => {
 export const loadDataset = async (id: string): Promise<DatasetData> => {
   let response: DatasetResponse;
 
-  // TODO - remove
-  id = 'porodnost';
-
-  await api.get(`/${id}/`).then(({ data }: AxiosResponse<DatasetResponse>) => {
-    response = data;
-  });
+  await api.get(`/dataset/get-one/${id}/`)
+    .then(({ data }: AxiosResponse<DatasetResponse>) => {
+      response = data;
+    });
 
   // @ts-ignore
   if (!response) {
@@ -156,6 +154,20 @@ export const sendDataset = async (data: UploadDatasetFormData): Promise<boolean>
     });
 
   return result;
+};
+
+export const getPublicDatasets = async (): Promise<string[]> => {
+  let response = null;
+
+  await api.get('/dataset/public/').then(({ data }: AxiosResponse<string[]>) => {
+    response = data;
+  });
+
+  if (!response) {
+    return [];
+  }
+
+  return response;
 };
 
 export default api;
