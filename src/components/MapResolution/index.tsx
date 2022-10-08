@@ -3,11 +3,11 @@ import { Radio, IconButton } from '@vechaiui/react';
 import { useRecoilState } from 'recoil';
 import { mapResolutionState } from '../../store/atoms';
 
-const MapResolution = () => {
+const MapSettings = () => {
   const [resolution, setResolution] = useRecoilState(mapResolutionState);
 
   return (
-    <div className="inline-block mb-4 rounded-lg shadow-lg border items-start">
+    <div className="inline-block mb-4 mr-4 rounded-lg shadow-lg border items-start">
       <label><h2 className="text-2xl border-b text-center py-4 px-8">
         Úroveň rozlišení map
       </h2></label>
@@ -26,4 +26,4 @@ const MapResolution = () => {
   );
 }
 
-export default MapResolution;
+export default MapSettings;

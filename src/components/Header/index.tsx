@@ -6,12 +6,6 @@ import Login from '../Login';
 import Info from '../Info';
 
 const Header = () => {
-  const [showDialog, setShowDialog] = React.useState(false);
-  const completeButtonRef = React.useRef(null);
-
-  const handleOpen = () => setShowDialog(true);
-  const handleClose = () => setShowDialog(false);
-
   return (
     <header className="flex px-8 bg-slate-200 drop-shadow-md items-center justify-between">
       <NavLink end={true} to="/" className="inline-block">
