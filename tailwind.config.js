@@ -20,6 +20,7 @@ module.exports = {
         primary: colors.blue,
         red: colors.red,
         blue: colors.blue,
+        green: colors.green,
       }
     },  
   },
@@ -29,8 +30,7 @@ module.exports = {
   plugins: [
     require("@tailwindcss/forms"),
     require("@vechaiui/core")({
-      colors: ["red"],
-      colors: ["blue"]
+      colors: ["red", "blue", "green"],
     }),
   ],
 };
