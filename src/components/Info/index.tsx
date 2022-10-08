@@ -69,7 +69,7 @@ const Info = () => {
               <br />
               <p className="text-base font-normal text-neutral-500">
                 Projekt také využívá službu MojeID pro personalizaci pozdravu a kvízu (lokalizace; jinak je třeba zadat PSČ) 
-                a hlavně pro ukládání datasetů. K dříve nahraným datasetům se lze díky identifikaci účtu vždy vrátit.
+                a hlavně pro ukládání datasetů. K dříve nahraným datasetům se lze díky identifikaci účtu vždy vrátit. 
               </p>
             </div>
             <footer className="px-6 py-4">
